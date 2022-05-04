@@ -1,0 +1,59 @@
+<!--
+  vars
+-->
+@if(model.flash && model.flash.errors) {
+  var errors = model.flash.errors;
+}
+@if(model.flash && model.flash.alert) {
+  var alert = model.flash.alert;
+}
+
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+    <h2 class="Heading">Réservation en ligne (2/3)</h2>
+    <div class="u-margin--bottom u-visibility-lg--block">
+      <ul class="ProgressBar">
+        <li class="ProgressBar-item active">Choisissez une prestation</li>
+        <li class="ProgressBar-item active">Vos coordonnées</li>
+        <li class="ProgressBar-item">Date de la réservation</li>
+        <li class="ProgressBar-item">Confirmation</li>
+      </ul>
+    </div>
+    <div class="FormModule">
+      <h5 class="FormModule-title">Entrez vos coordonnées</h5>
+      @if(alert) {
+      <div class="Alert Alert--@(alert.type)">
+        <span>@alert.message</span>
+      </div>
+      }
+      <form class="Form" action="/reserve" method="POST">
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Prenom : </label>
+          <input class="FormCtrl FormCtrl--block" name="firstName" value="@(model.firstName || '' )" required>
+          @if(errors && errors.firstName) {
+          <div class="FormField-error">@errors.firstName.message</div>
+          }
+        </div>
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Nom : </label>
+          <input class="FormCtrl FormCtrl--block" name="lastName" value="@(model.lastName || '' )" required>
+          @if(errors && errors.lastName) {
+          <div class="FormField-error">@errors.lastName.message</div>
+          }
+        </div>
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Numéro de téléphone : </label>
+          <input class="FormCtrl FormCtrl--block" type="tel" name="phoneNumber" value="@(model.phoneNumber || '' )" required>
+          <div class="FormField-hint">Le numéro de téléphone doit être valide afin que votre esthéticienne puisse vous joindre en cas de problème</div>
+          @if(errors && errors.phoneNumber) {
+          <div class="FormField-error">@errors.phoneNumber.message</div>
+          }
+        </div>
+        <div class="FormModule-actions">
+          <button class="FormModule-actions-buttonL Button" onclick="window.location='/reserve-back'; return false;">Précedent</button>
+          <button class="FormModule-actions-buttonR Button" type="submit">Suivant</button>
+        </div>
+      </form>
+    </div>
+  })
+})

@@ -1,0 +1,9 @@
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+    <img src="images/banner-00.jpg" class="BannerImg"/>
+    <div class="Alert Alert--success">
+      <div>Inscription terminée, à partir de maintenant vous serez informé de nos offres par email.</div>
+      <a href="/">Cliquez ici pour revenir à l'accueil</a>
+    </div> 
+  })
+})

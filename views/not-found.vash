@@ -1,0 +1,8 @@
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+    <img src="images/banner-00.jpg" class="BannerImg"/>
+    <div class="u-text--center">
+      <h2>La page que vous recherchez semble introuvable</h2>
+    </div>
+  })
+})

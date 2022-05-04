@@ -1,0 +1,13 @@
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+	  <div class="u-text--center">
+      <h2>Une erreur inattendue est survenue</h2>
+      @if(model.error.message) {
+      <h6>Code d'erreur: @model.error.message</h6>
+      }
+      @if(model.error.code) {
+      <h6>Message d'erreur : @model.error.code</h6>
+      }
+    </div>
+  })
+})

@@ -1,0 +1,32 @@
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+    <h2 class="Heading">Produit</h2>
+    <div class="ProductBlock">
+      <div class="ProductBlock-picture">
+        <img src="@model.product.picture"/>
+      </div>
+      <div class="ProductBlock-info">
+        <div class="ProductBlock-info-title">@model.product.title</div>
+        <div class="ProductBlock-info-brand">@model.product.brand.name</div>
+        <div class="ProductBlock-info-subtitle">@model.product.subtitle</div>
+        <div class="ProductBlock-info-description">@model.product.description</div>
+      </div>
+      <div class="ProductBlock-aside">
+        <div class="ProductBlock-aside-price">
+          <div class="ProductBlock-aside-price-value">@model.product.price €</div>
+          <div class="ProductBlock-aside-price-sup">TTC</div>
+        </div>
+        @if(model._currentUser && model._currentUser.roles.indexOf('ADMIN') != -1) {
+        <form class="ProductBlock-aside-form" action="/product-edit" method="GET">
+          <input name="productId" type="hidden" value="@model.product._id">
+          <button class="Button Button--block" type="submit">Editer</button>
+        </form>
+        <form class="ProductBlock-aside-form" action="/product-delete" method="POST">
+          <input name="productId" type="hidden" value="@model.product._id">
+          <button class="Button Button--block Button--danger" type="submit">Supprimer</button>
+        </form>
+        }
+      </div>
+    </div>
+  })
+})

@@ -1,0 +1,37 @@
+<!--
+  vars
+-->
+@if(model.flash && model.flash.data) {
+  var data = model.flash.data;
+}
+@if(model.flash && model.flash.errors) {
+  var errors = model.flash.errors;
+}
+@if(model.flash && model.flash.alert) {
+  var alert = model.flash.alert;
+}
+
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+    <h2 class="Heading">Editer une catégorie de produit</h2>
+    <div class="FormModule" id="formModule">
+      <h5 class="FormModule-title">Formulaire d'édition d'une catégorie de produit</h5>
+      @if(alert) {
+      <div class="Alert Alert--@(alert.type)">
+        <span>@alert.message</span>
+      </div>
+      }
+      <form class="Form" action="/product-category-edit" method="POST">
+        <input name="productCategoryId" type="hidden" value="@model.productCategory._id">
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Nom</label>
+          <input class="FormCtrl FormCtrl--block" name="name" value="@model.productCategory.name" required>
+          @if(errors && errors.name) {
+          <div class="FormField-error">@errors.name.message</div>
+          }
+        </div>
+        <button class="Button Button--block" type="submit">Editer</button>
+      </form>
+    </div>    
+  })
+})

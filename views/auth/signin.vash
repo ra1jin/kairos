@@ -1,0 +1,44 @@
+<!--
+  vars
+-->
+@if(model.flash && model.flash.data) {
+  var data = model.flash.data;
+}
+@if(model.flash && model.flash.errors) {
+  var errors = model.flash.errors;
+}
+@if(model.flash && model.flash.alert) {
+  var alert = model.flash.alert;
+}
+
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+    <img src="images/banner-00.jpg" class="BannerImg"/>
+    <div class="FormModule" id="formModule">
+      <h5 class="FormModule-title">Formulaire d'identification</h5>
+      @if(alert) {
+      <div class="Alert Alert--@(alert.type)">
+        <span>@alert.message</span>
+      </div>
+      }
+      <form class="Form" action="/signin" method="POST">
+        <div class="FormField">
+          <label class="FormField-label">Email : </label>
+          <input class="FormCtrl FormCtrl--block" name="email" type="email" value="@(data && data.email || '' )" required>
+          @if(errors && errors.email) {
+          <div class="FormField-error">@errors.email.message</div>
+          }
+        </div>
+        <div class="FormField">
+          <label class="FormField-label">Mot de passe : </label>
+          <input class="FormCtrl FormCtrl--block" name="password" type="password" required>
+          <div class="FormField-hint"><a href="/forgot-password">Mot de passe oublié ?</a></div>
+          @if(errors && errors.password) {
+          <div class="FormField-error">@errors.password.message</div>
+          }
+        </div>
+        <button class="Button Button--block" type="submit">Connexion</button>
+      </form>
+    </div>    
+  })
+})

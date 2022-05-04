@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="186.79218mm"
+   height="66.023659mm"
+   viewBox="0 0 186.79218 66.023659"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="brand.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="362.17436"
+     inkscape:cy="114.56862"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="986"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:document-rotation="0" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-9.5894669,-217.92621)"
+     style="display:inline">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.10000002;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="7.4678087"
+       y="237.22426"
+       id="text4532"><tspan
+         sodipodi:role="line"
+         id="tspan4530"
+         x="7.4678087"
+         y="237.22426"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25.39999962px;line-height:1.10000002;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:1.86531222px;fill:#ffffff;fill-opacity:1;stroke-width:0.26458332">NATURE'ELLE</tspan><tspan
+         sodipodi:role="line"
+         x="7.4678087"
+         y="265.16425"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25.39999962px;line-height:1.10000002;font-family:sans-serif;-inkscape-font-specification:sans-serif;letter-spacing:1.86531222px;fill:#ffffff;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan4534">BEAUTE</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="8.9286976"
+       y="282.05438"
+       id="text4546"><tspan
+         sodipodi:role="line"
+         id="tspan4544"
+         x="8.9286976"
+         y="282.05438"
+         style="font-size:9.87777805px;letter-spacing:0.5715px;fill:#f9f9f9;fill-opacity:1;stroke-width:0.26458332">INSTITUT BIO-ESTHETIQUE PHYT'S</tspan></text>
+  </g>
+</svg>

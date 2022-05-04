@@ -1,0 +1,104 @@
+<!--
+  vars
+-->
+@if(model.flash && model.flash.data) {
+  var data = model.flash.data;
+}
+@if(model.flash && model.flash.errors) {
+  var errors = model.flash.errors;
+}
+@if(model.flash && model.flash.alert) {
+  var alert = model.flash.alert;
+}
+
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+    <h2 class="Heading">Créer un produit</h2>
+    <div class="FormModule" id="formModule">
+      <h5 class="FormModule-title">Formulaire de création d'un produit</h5>
+      @if(alert) {
+      <div class="Alert Alert--@(alert.type)">
+        <span>@alert.message</span>
+      </div>
+      }
+      <form class="Form" action="/product-new" method="POST" enctype="multipart/form-data">
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Titre:</label>
+          <input class="FormCtrl FormCtrl--block" name="title" value="@(data && data.title || '')" required>
+          @if(errors && errors.title) {
+          <div class="FormField-error">@errors.title.message</div>
+          }
+        </div>
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Sous-titre:</label>
+          <input class="FormCtrl FormCtrl--block" name="subtitle" value="@(data && data.subtitle || '')" required>
+          @if(errors && errors.subtitle) {
+          <div class="FormField-error">@errors.subtitle.message</div>
+          }
+        </div>
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Description:</label>
+          <textarea class="FormCtrl FormCtrl--block" name="description" rows="5" cols="33" style="resize: none; height: auto;">@(data && data.description || '')</textarea>
+          @if(errors && errors.description) {
+          <div class="FormField-error">@errors.description.message</div>
+          }
+        </div>
+        <div class="FormField">
+          <label class="FormField-label">Image:</label>
+          <input class="FormCtrl FormCtrl--block" type="file" name="picture"/>
+          @if(errors && errors.picture) {
+          <div class="FormField-error">@errors.picture.message</div>
+          }
+        </div>
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Marque:</label>
+          <select class="FormCtrl FormCtrl--block" name="brand">
+            <option value="">--Choisissez une marque--</option>
+            @model.productBrands.forEach(function(productBrand) {
+            <option value="@productBrand._id">@productBrand.name</option>
+            })
+          </select>
+          @if(errors && errors.brand) {
+          <div class="FormField-error">@errors.brand.message</div>
+          }
+        </div>
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Catégorie:</label>
+          <select name="category">
+            <option value="">--Choisissez une catégorie--</option>
+            @model.productCategories.forEach(function(productCategory) {
+              <option value="@productCategory._id">@productCategory.name</option>
+            })
+          </select>
+          @if(errors && errors.category) {
+          <div class="FormField-error">@errors.category.message</div>
+          }
+        </div>
+        <div class="FormField">
+          <label class="FormField-label">Publié:</label>
+          <input type="checkbox" name="published" id="published" checked>
+          <label for="published">Oui</label>
+          @if(errors && errors.published) {
+          <div class="FormField-error">@errors.published.message</div>
+          }
+        </div>
+        <div class="FormField">
+          <label class="FormField-label">En stock:</label>
+          <input type="checkbox" name="available" id="available" checked>
+          <label for="available">Oui</label>
+          @if(errors && errors.available) {
+          <div class="FormField-error">@errors.available.message</div>
+          }
+        </div>
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Prix TTC:</label>
+          <input class="FormCtrl FormCtrl--block" name="price" value="@(data && data.price)" required>
+          @if(errors && errors.price) {
+          <div class="FormField-error">@errors.price.message</div>
+          }
+        </div>
+        <button class="Button Button--block" type="submit">Créer</button>
+      </form>
+    </div>    
+  })
+})

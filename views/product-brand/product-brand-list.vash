@@ -1,0 +1,44 @@
+<!--
+  vars
+-->
+@if(model.flash && model.flash.alert) {
+  var alert = model.flash.alert;
+}
+
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+    <h2 class="Heading">Liste des marques de produits</h2>
+    @if(alert) {
+    <div class="Alert Alert--@(alert.type)">
+      <span>@alert.message</span>
+    </div>
+    }
+
+    @if(model.productBrands.length > 0) {
+    <table class="Table Table--bordered">
+      <tr>
+        <th>Marque</th>
+        <th>Action(s)</th>
+      </tr>    
+      @model.productBrands.forEach(function(productBrand) {
+      <tr>
+        <td>@productBrand.name</td>
+        <td class="u-fx u-fx-layout-align--around">
+          <form action="/product-brand-edit" method="GET">
+            <input name="productBrandId" type="hidden" value="@productBrand._id">
+            <button class="Button Button--primary" type="submit">Editer</button>
+          </form>
+          <form action="/product-brand-delete" method="POST">
+            <input name="productBrandId" type="hidden" value="@productBrand._id">
+            <button class="Button Button--danger" type="submit">Supprimer</button>
+          </form>
+        </td>
+      </tr>
+      })
+    </table>
+    }
+    else {
+    <div class="EmptyBox">Aucune marque</div>
+    }
+  })
+})

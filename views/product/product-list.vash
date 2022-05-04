@@ -1,0 +1,98 @@
+<!--
+  vars
+-->
+@if(model.flash && model.flash.alert) {
+  var alert = model.flash.alert;
+}
+
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+    <h2 class="Heading">Boutique</h2>
+    @if(alert) {
+    <div class="Alert Alert--@(alert.type)">
+      <span>@alert.message</span>
+    </div>
+    }
+
+    <div class="FormModule u-margin-half--bottom">
+      <h5 class="FormModule-title">Recherche</h5>
+      <form class="Form" action="/product-list" method="GET">
+        <div class="u-fx">
+          <div class="FormField u-width--1of4 u-margin-half--left u-margin-half--right">
+            <label class="FormField-label">Catégorie(s):</label>
+            <select class="FormCtrl FormCtrl--block" name="category">
+              <option value="">Tous</option>
+              @model.productCategories.forEach(function(productCategory) {
+              <option value="@productCategory._id" @(model.query.category == productCategory._id ? 'selected' : '')>@productCategory.name</option>
+              })
+            </select>
+          </div>
+          <div class="FormField u-width--1of4 u-margin-half--left u-margin-half--right">
+            <label class="FormField-label">Marque :</label>
+            <select class="FormCtrl FormCtrl--block" name="brand">
+              <option value="">Tous</option>
+              @model.productBrands.forEach(function(productBrand) {
+              <option value="@productBrand._id" @(model.query.brand == productBrand._id ? 'selected' : '')>@productBrand.name</option>
+              })
+            </select>
+          </div>
+          <div class="FormField u-width--1of4 u-margin-half--left u-margin-half--right">
+            <label class="FormField-label">Prix min :</label>
+            <select class="FormCtrl FormCtrl--block" name="minPrice">
+              <option value="">Pas de  Min.</option>
+              @for(var i = 0; i <= 50; i += 10) {
+              <option value="@i" @(model.query.minPrice == i ? 'selected' : '')>@i €</option>
+              }
+            </select>
+          </div>
+          <div class="FormField u-width--1of4 u-margin-half--left u-margin-half--right">
+            <label class="FormField-label">Prix max :</label>
+            <select class="FormCtrl FormCtrl--block" name="maxPrice">
+              <option value="">Pas de  Max.</option>
+              @for(var i = 50; i <= 250; i += 20) {
+              <option value="@i" @(model.query.maxPrice == i ? 'selected' : '')>@i €</option>
+              }
+            </select>
+          </div>
+        </div>
+        <button class="Button Button--block" type="submit">Rechercher</button>
+      </form>
+    </div>
+    <div class="u-fx u-fx-layout--column">
+      @model.products.forEach(function(product) {
+      <div class="ProductCard">
+        <div class="u-width--1of6">
+          <img class="u-img-fluid" src="@product.picture"/>
+        </div>
+        <div class="u-width--2of6 u-margin--left">
+          <a href="/product-view?productId=@product._id" class="ProductCard-title">@product.title</a>
+          <div class="ProductCard-brand">@product.brand.name</div>
+          <div class="ProductCard-subtitle">@product.subtitle</div>
+        </div>
+        <div class="u-fx u-fx-layout--column u-fx-cross-align--center u-width--2of6 u-margin--left-auto">
+          <div class="ProductCard-price">
+            <div class="ProductCard-price-value">@(Number(product.price).toFixed(2)) €</div>
+            <div class="ProductCard-price-sup">TTC</div>
+          </div>
+          @if(product.available) {
+          <div class="ProductCard-stock yes">En stock</div>
+          }
+          else {
+          <div class="ProductCard-stock no">Epuisé</div>
+          }
+          <a href="/product-view?productId=@product._id" class="ProductCard-link"></a>
+        </div>
+      </div>
+      })
+      @if(model.products.length == 0) {
+      <div class="EmptyBox">Aucun produits</div>
+      }
+    </div>
+
+    <div class="Pagination">
+      @for(var i = 1; i <= model.numPages; i++) {
+        <a href="/product-list?category=@model.query.category&brand=@model.query.brand&minPrice=@model.query.minPrice&maxPrice=@model.query.maxPrice&page=@i" class="Pagination-link @(model.currentPage == i ? 'Pagination-link--active' : '')">@i</a>
+      }
+    </div>
+  })
+})

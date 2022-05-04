@@ -1,0 +1,92 @@
+<!--
+  vars
+-->
+@if(model.reserves) {
+  var reserves = model.reserves;
+}
+@if(model.flash && model.flash.alert) {
+  var alert = model.flash.alert;
+}
+
+@html.extend('layout', function(model) {
+  @html.block('added_js', function(model) {
+    <script>
+      function toggleCard(reserveCardId) {
+        var reserveCard = document.querySelector('#' + reserveCardId);
+        reserveCard.classList.toggle('ReserveCard--show');
+      }
+    </script>
+  })
+  @html.block('content', function(model) {
+    @if(alert) {
+    <div class="Alert Alert--@(alert.type)">
+      <span>@alert.message</span>
+    </div>
+    }
+    <div class="FormModule u-margin--bottom">
+      <h5 class="FormModule-title">Formulaire de recherche des réservations</h5>
+      <form class="Form" action="/reserve-list-by-interval" method="GET">
+        <div class="FormField">
+          <label class="FormField-label">Date de début : </label>
+          <input class="FormCtrl FormCtrl--block" name="beginDate" type="date" value="@model.beginDate.format('YYYY-MM-DD')">
+        </div>
+        <div class="FormField">
+          <label class="FormField-label">Date de fin : </label>
+          <input class="FormCtrl FormCtrl--block" name="endDate" type="date" value="@model.endDate.format('YYYY-MM-DD')">
+        </div>
+        <button class="Button Button--block" type="submit">Rechercher</button>
+      </form>
+    </div>
+    <h2 class="Heading">Vos rendez-vous du @model.beginDate.format('DD/MM') au @model.endDate.format('DD/MM')</h2>
+    @reserves.forEach(function(reserve) {
+    <div class="ReserveCard" id="reserve-@reserve.id">
+      <div class="ReserveCard-header" onclick="toggleCard('reserve-@reserve.id')">
+        <h4 class="ReserveCard-header-title">
+          @reserve.startTime.locale('fr').format('DD MMMM').toUpperCase()
+          <br>
+          @reserve.startTime.format('HH:mm') - @reserve.endTime.format('HH:mm')
+        </h4>
+        <div class="ReserveCard-header-prestations">
+          @for (var prestation of reserve.prestations) {
+            <div class="ReserveCard-header-prestations-item">@prestation.name.toUpperCase()</div>
+          }
+        </div>
+      </div>
+      <div class="ReserveCard-body">
+        <div class="ReserveCard-body-infos">
+          <div class="ReserveCard-body-infos-item">
+            <div class="ReserveCard-body-infos-item-label">Prenom : </div>
+            <div class="ReserveCard-body-infos-item-value">@reserve.firstName.toUpperCase()</div>
+          </div>
+          <div class="ReserveCard-body-infos-item">
+            <div class="ReserveCard-body-infos-item-label">Nom : </div>
+            <div class="ReserveCard-body-infos-item-value">@reserve.lastName.toUpperCase()</div>
+          </div>
+          <div class="ReserveCard-body-infos-item">
+            <div class="ReserveCard-body-infos-item-label">Téléphone : </div>
+            <div class="ReserveCard-body-infos-item-value">@reserve.phoneNumber.toUpperCase()</div>
+          </div>
+          <div class="ReserveCard-body-infos-item">
+            <div class="ReserveCard-body-infos-item-label">Commence à : </div>
+            <div class="ReserveCard-body-infos-item-value">@reserve.startTime.locale('fr').format('LLLL').toUpperCase()</div>
+          </div>
+          <div class="ReserveCard-body-infos-item">
+            <div class="ReserveCard-body-infos-item-label">Termine à : </div>
+            <div class="ReserveCard-body-infos-item-value">@reserve.endTime.locale('fr').format('LLLL').toUpperCase()</div>
+          </div>
+        </div>
+        <div class="ReserveCard-body-actions">
+          <form action="/reserve-delete" method="POST">
+            <input name="reserveId" type="hidden" value="@reserve._id">
+            <button class="Button Button--danger" type="submit">Supprimer</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    })
+
+    @if(reserves.length == 0) {
+    <div class="EmptyBox">Aucune réservation</div>
+    }
+  })
+})

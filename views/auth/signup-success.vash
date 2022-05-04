@@ -1,0 +1,12 @@
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+    <img src="images/banner-00.jpg" class="BannerImg"/>
+    <div class="FormModule" id="formModule">
+      <h5 class="FormModule-title">Formulaire d'inscription</h5>
+      <div class="Alert Alert--success">
+        <div>Inscription terminée, un email de confirmation vous a été envoyé !</div>
+        <a href="/signin">Cliquez ici pour vous connecter</a>
+      </div>
+    </div>    
+  })
+})

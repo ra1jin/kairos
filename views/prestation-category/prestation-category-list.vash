@@ -1,0 +1,44 @@
+<!--
+  vars
+-->
+@if(model.flash && model.flash.alert) {
+  var alert = model.flash.alert;
+}
+
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+    <h2 class="Heading">Liste des catégories de prestations</h2>
+    @if(alert) {
+    <div class="Alert Alert--@(alert.type)">
+      <span>@alert.message</span>
+    </div>
+    }
+
+    @if(model.prestationCategories.length > 0) {
+    <table class="Table Table--bordered">
+      <tr>
+        <th>Catégorie</th>
+        <th>Action(s)</th>
+      </tr>    
+      @model.prestationCategories.forEach(function(prestationCategory) {
+      <tr>
+        <td>@prestationCategory.name</td>
+        <td class="u-fx u-fx-layout-align--around">
+          <form action="/prestation-category-edit" method="GET">
+            <input name="prestationCategoryId" type="hidden" value="@prestationCategory._id">
+            <button class="Button Button--primary" type="submit">Editer</button>
+          </form>
+          <form action="/prestation-category-delete" method="POST">
+            <input name="prestationCategoryId" type="hidden" value="@prestationCategory._id">
+            <button class="Button Button--danger" type="submit">Supprimer</button>
+          </form>
+        </td>
+      </tr>
+      })
+    </table>
+    }
+    else {
+    <div class="EmptyBox">Aucune catégorie de prestation</div>
+    }
+  })
+})

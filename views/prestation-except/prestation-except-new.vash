@@ -1,0 +1,59 @@
+<!--
+  vars
+-->
+@if(model.flash && model.flash.data) {
+  var data = model.flash.data;
+}
+@if(model.flash && model.flash.errors) {
+  var errors = model.flash.errors;
+}
+@if(model.flash && model.flash.alert) {
+  var alert = model.flash.alert;
+}
+
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+    <h2 class="Heading">Créer une exception</h2>
+    <div class="FormModule" id="formModule">
+      <h5 class="FormModule-title">Formulaire de création d'une exception</h5>
+      @if(alert) {
+      <div class="Alert Alert--@(alert.type)">
+        <span>@alert.message</span>
+      </div>
+      }
+      <form class="Form" action="/prestation-except-new" method="POST">
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Collaborateur : </label>
+          <select class="FormCtrl FormCtrl--block" name="userId" required>
+          @model.users.forEach(function(user) {
+          <option value="@user.id" @(data && data.userId == user.id ? 'selected' : '')>@user.firstName</option>
+          })
+          </select>
+        </div>
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Prestation : </label>
+          <select class="FormCtrl FormCtrl--block" name="prestationId" required>
+          @model.prestations.forEach(function(prestation) {
+          <option value="@prestation.id" @(data && data.prestationId == prestation.id ? 'selected' : '')>@prestation.name</option>
+          })
+          </select>
+        </div>
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Heure de début</label>
+          <input class="FormCtrl FormCtrl--block" name="startTime" type="time" value="@(data && data.startTime || '')" required>
+          @if(errors && errors.startTime) {
+          <div class="FormField-error">@errors.startTime.message</div>
+          }
+        </div>
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Heure de fin</label>
+          <input class="FormCtrl FormCtrl--block" name="endTime" type="time" value="@(data && data.endTime || '')" required>
+          @if(errors && errors.endTime) {
+          <div class="FormField-error">@errors.endTime.message</div>
+          }
+        </div>
+        <button class="Button Button--block" type="submit">Créer</button>
+      </form>
+    </div>
+  })
+})

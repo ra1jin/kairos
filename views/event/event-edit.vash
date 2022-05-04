@@ -1,0 +1,67 @@
+<!--
+  vars
+-->
+@if(model.flash && model.flash.errors) {
+  var errors = model.flash.errors;
+}
+@if(model.flash && model.flash.alert) {
+  var alert = model.flash.alert;
+}
+
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+    <h2 class="Heading">Editer un evènement</h2>
+    <div class="FormModule" id="formModule">
+      <h5 class="FormModule-title">Formulaire d'edition d'événement</h5>
+      @if(alert) {
+      <div class="Alert Alert--@(alert.type)">
+        <span>@alert.message</span>
+      </div>
+      }
+      <form class="Form" action="/event-edit" method="POST" enctype="multipart/form-data">
+        <input name="eventId" type="hidden" value="@model.event._id">
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Titre</label>
+          <input class="FormCtrl FormCtrl--block" name="title" value="@model.event.title" required>
+          @if(errors && errors.title) {
+          <div class="FormField-error">@errors.title.message</div>
+          }
+        </div>
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Date de début</label>
+          <input class="FormCtrl FormCtrl--block" name="startDatetime" type="datetime-local" value="@model.event.startDatetime.format('YYYY-MM-DDTHH:mm')" required>
+          @if(errors && errors.startDatetime) {
+          <div class="FormField-error">@errors.startDatetime.message</div>
+          }
+        </div>
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Date de fin</label>
+          <input class="FormCtrl FormCtrl--block" name="endDatetime" type="datetime-local" value="@model.event.endDatetime.format('YYYY-MM-DDTHH:mm')" required>
+          @if(errors && errors.endDatetime) {
+          <div class="FormField-error">@errors.endDatetime.message</div>
+          }
+        </div>
+        <div class="FormField">
+          <label class="FormField-label">Localisation</label>
+          <input class="FormCtrl FormCtrl--block" name="location" value="@model.event.location" pattern="^https:\/\/goo.gl\/maps\/[A-Za-z0-9]{17}$" placeholder="https://goo.gl/maps/xxxxxxxxxxxxx">
+          @if(errors && errors.location) {
+          <div class="FormField-error">@errors.location.message</div>
+          }
+        </div>
+        <div class="FormField">
+          <label class="FormField-label">Image de fond</label>
+          <img src="@model.event.picture" style="max-width: 135px"/>
+          <input class="FormCtrl FormCtrl--block" type="file" name="picture"/>
+          @if(errors && errors.picture) {
+          <div class="FormField-error">@errors.picture.message</div>
+          }
+        </div>
+        <div class="FormField">
+          <label class="FormField-label">Description</label>
+          <textarea class="FormCtrl FormCtrl--block" name="description" rows="5" cols="33" style="resize: none; height: auto;">@model.event.description</textarea>
+        </div>
+        <button class="Button" type="submit">Editer</button>
+      </form>
+    </div>    
+  })
+})

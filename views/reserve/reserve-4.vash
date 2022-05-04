@@ -1,0 +1,58 @@
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+    <h2 class="Heading">Confirmation de votre réservation en ligne</h2>
+    <div class="u-margin--bottom u-visibility-lg--block">
+      <ul class="ProgressBar">
+        <li class="ProgressBar-item active">Choisissez une prestation</li>
+        <li class="ProgressBar-item active">Vos coordonnées</li>
+        <li class="ProgressBar-item active">Date de la réservation</li>
+        <li class="ProgressBar-item active">Confirmation</li>
+      </ul>
+    </div>
+    <div class="ReserveTicket">
+      <h4 class="ReserveTicket-title">Billet de réservation</h4>
+      <div class="ReserveTicket-infos">
+        <div class="ReserveTicket-infos-item">
+          <div class="ReserveTicket-infos-item-label">Prenom : </div>
+          <div class="ReserveTicket-infos-item-value">@model.firstName.toUpperCase()</div>
+        </div>
+        <div class="ReserveTicket-infos-item">
+          <div class="ReserveTicket-infos-item-label">Nom : </div>
+          <div class="ReserveTicket-infos-item-value">@model.lastName.toUpperCase()</div>
+        </div>
+        <div class="ReserveTicket-infos-item">
+          <div class="ReserveTicket-infos-item-label">Prestations : </div>
+          <div class="ReserveTicket-infos-item-value">
+            @for (var prestation of model.prestations) {
+              <div>@prestation.name.toUpperCase()</div>
+            }
+          </div>
+        </div>
+        <div class="ReserveTicket-infos-item">
+          <div class="ReserveTicket-infos-item-label">Commence à : </div>
+          <div class="ReserveTicket-infos-item-value">@model.startTime.locale('fr').format('LLLL').toUpperCase()</div>
+        </div>
+        <div class="ReserveTicket-infos-item">
+          <div class="ReserveTicket-infos-item-label">Termine à : </div>
+          <div class="ReserveTicket-infos-item-value">@model.endTime.locale('fr').format('LLLL').toUpperCase()</div>
+        </div>
+        <div class="ReserveTicket-infos-item">
+          <div class="ReserveTicket-infos-item-label">Avec : </div>
+          <div class="ReserveTicket-infos-item-value">@model.user.firstName.toUpperCase()</div>
+        </div>
+        <div class="ReserveTicket-infos-item">
+          <div class="ReserveTicket-infos-item-label">Nom du commerce : </div>
+          <div class="ReserveTicket-infos-item-value">INSTITUT NATURE'ELLE BEAUTE</div>
+        </div>
+        <div class="ReserveTicket-infos-item">
+          <div class="ReserveTicket-infos-item-label">Lieu du rendez-vous : </div>
+          <div class="ReserveTicket-infos-item-value">4 RUE LOMBARD, 24120 TERRASSON-LAVILLEDIEU</div>
+        </div>
+      </div>
+      <form class="ReserveTicket-actions" action="/reserve" method="POST">
+        <button class="ReserveTicket-actions-buttonL Button" onclick="window.location='/reserve-back'; return false;">Précedent</button>
+        <button class="ReserveTicket-actions-buttonR Button Button--primary" type="submit">Confirmer</button>
+      </form>
+    </div>
+  })
+})

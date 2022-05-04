@@ -1,0 +1,18 @@
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+	<h2 class="Heading">Les bons cadeaux</h2>
+	<div class="Bon">
+		<img class="Bon-img" src="images/bc.jpg">
+		<div class="Bon-block">
+			<div class="Bon-block-text">
+				Faites plaisir à ceux que vous aimez, offrez un moment de détente et de bien-être pour Noël, la Fête des Mères, la Fête des pères, la Saint-Valentin, une naissance ou juste pour le plaisir.<br>
+				Offrez des bons cadeaux détente, des bons soins visages ou corps : un cadeau unique, personnel et inoubliable !<br>
+				Vous pouvez aussi offrir des cartes cadeaux de la valeur de votre choix : la personne peut ainsi se faire plaisir en choisissant un soin en cabine ou en achetant un produit de soin, un accessoire en boutique.
+			</div>
+			<div class="Bon-block-picture">
+				<img src="images/bc-phyts.jpg">
+			</div>
+		</div>
+	</div>
+  })
+})

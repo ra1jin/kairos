@@ -1,0 +1,34 @@
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+	<div class="Home">
+		<h2 class="Heading">Bienvenue sur votre tableau de bord</h2>
+		<div class="u-fx u-fx-layout--column u-fx-mdup-layout--row">
+			<ul>
+				<li><a href="/vacation-new">Créer une période de congès</a></li>
+				<li><a href="/prestation-new">Créer une prestation</a></li>
+				<li><a href="/prestation-category-new">Créer une catégorie de prestations</a></li>
+				<li><a href="/prestation-except-new">Créer une exception</a></li>
+				<li><a href="/user-new">Créer un utilisateur</a></li>
+				<li><a href="/event-new">Créer un événement</a></li>
+				<li><a href="/product-new">Créer un produit</a></li>
+				<li><a href="/product-category-new">Créer une catégorie de produits</a></li>
+				<li><a href="/product-brand-new">Créer une marque de produits</a></li>
+				<li><a href="/reserve-start">Créer une réservation</a></li>
+			</ul>
+			<ul>
+				<li><a href="/vacation-list">Liste des périodes de congès</a></li>
+				<li><a href="/prestation-list">Liste des prestations</a></li>
+				<li><a href="/prestation-category-list">Liste des catégories de prestations</a></li>
+				<li><a href="/prestation-except-list">Liste des exceptions</a></li>
+				<li><a href="/user-list">Liste des utilisateurs</a></li>
+				<li><a href="/event-list">Liste des événements</a></li>
+				<li><a href="/product-list">Liste des produits</a></li>
+				<li><a href="/product-category-list">Liste des catégories de produits</a></li>
+				<li><a href="/product-brand-list">Liste des marques de produits</a></li>
+				<li><a href="/reserve-list-by-day">Liste des réservations par jour</a></li>
+				<li><a href="/reserve-list-by-interval">Liste des réservations par intervale</a></li>
+			</ul>
+		</div>
+	</div>
+  })
+})

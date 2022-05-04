@@ -1,0 +1,43 @@
+<!--
+  vars
+-->
+@if(model.flash && model.flash.alert) {
+  var alert = model.flash.alert;
+}
+
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+    <h2 class="Heading">Liste des prestations</h2>
+    @if(alert) {
+    <div class="Alert Alert--@(alert.type)">
+      <span>@alert.message</span>
+    </div>
+    }
+    @if(model.prestations.length > 0) {
+    <table class="Table Table--bordered">
+      <tr>
+        <th>Prestation</th>
+        <th>Action(s)</th>
+      </tr>
+      @model.prestations.forEach(function(prestation) {
+      <tr>
+        <td>@prestation.name</td>
+        <td class="u-fx u-fx-layout-align--around">
+          <form action="/prestation-edit" method="GET">
+            <input name="prestationId" type="hidden" value="@prestation._id">
+            <button class="Button Button--primary" type="submit">Editer</button>
+          </form>
+          <form action="/prestation-delete" method="POST">
+            <input name="prestationId" type="hidden" value="@prestation._id">
+            <button class="Button Button--danger" type="submit">Supprimer</button>
+          </form>
+        </td>
+      </tr>
+      })
+    </table>
+    }
+    else {
+    <div class="EmptyBox">Aucune prestation</div>
+    }
+  })
+})

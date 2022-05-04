@@ -1,0 +1,48 @@
+<!--
+  vars
+-->
+@if(model.flash && model.flash.alert) {
+  var alert = model.flash.alert;
+}
+
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+    <h2 class="Heading">Liste des exceptions</h2>
+    @if(alert) {
+    <div class="Alert Alert--@(alert.type)">
+      <span>@alert.message</span>
+    </div>
+    }
+
+    @if(model.prestationExcepts.length > 0) {
+    <table class="Table Table--bordered">
+      <tr>
+        <th>Collaborateur</th>
+        <th>Prestation</th>
+        <th>Créneaux</th>
+        <th>Action(s)</th>
+      </tr>    
+      @model.prestationExcepts.forEach(function(prestationExcept) {
+      <tr>
+        <td>@prestationExcept.user.email</td>
+        <td>@prestationExcept.prestation.name</td>
+        <td>@prestationExcept.startTime - @prestationExcept.endTime</td>
+        <td class="u-fx u-fx-layout-align--around">
+          <form action="/prestation-except-edit" method="GET">
+            <input name="prestationExceptId" type="hidden" value="@prestationExcept._id">
+            <button class="Button Button--primary" type="submit">Editer</button>
+          </form>
+          <form action="/prestation-except-delete" method="POST">
+            <input name="prestationExceptId" type="hidden" value="@prestationExcept._id">
+            <button class="Button Button--danger" type="submit">Supprimer</button>
+          </form>
+        </td>
+      </tr>
+      })
+    </table>
+    }
+    else {
+    <div class="EmptyBox">Aucune exception</div>
+    }
+  })
+})

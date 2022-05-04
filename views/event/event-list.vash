@@ -1,0 +1,96 @@
+<!--
+  vars
+-->
+@if(model.flash && model.flash.alert) {
+  var alert = model.flash.alert;
+}
+
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+    <h2 class="Heading">Evènements du moment (@model.numEvents)</h2>
+    @if(alert) {
+    <div class="Alert Alert--@(alert.type)">
+      <span>@alert.message</span>
+    </div>
+    }
+    @model.events.forEach(function(event) {
+    var state = event.getState();
+    var timeRemaining = event.getTimeRemaining();
+    <div class="EventCard">
+      <div class="EventCard-picture">
+        <img src="@event.picture" />
+      </div>
+      <div class="EventCard-body">
+        <h3 class="EventCard-body-title">@event.title</h3>
+        <div class="EventCard-body-infos">
+          <div class="EventCard-body-infos-item">
+            <div class="EventCard-body-infos-item-label">DEBUT : </div>
+            <div class="EventCard-body-infos-item-value">@event.startDatetime.locale('fr').format('LLLL')</div>
+          </div>
+          <div class="EventCard-body-infos-item">
+            <div class="EventCard-body-infos-item-label">FIN : </div>
+            <div class="EventCard-body-infos-item-value">@event.endDatetime.locale('fr').format('LLLL')</div>
+          </div>
+          <div class="EventCard-body-infos-item">
+            <div class="EventCard-body-infos-item-label">COMMENCE DANS : </div>
+            <div class="EventCard-body-infos-item-value u-text--important">
+              @if (state == 'ON_COMING' && timeRemaining.days > 0) {
+              <span>@timeRemaining.days jour(s)</span>
+              }
+              else if (state == 'ON_COMING' && timeRemaining.hours > 0) {
+              <span>@timeRemaining.hours heure(s) et @timeRemaining.minutes minute(s)</span>
+              }
+              else if (state == 'ON_COMING' && timeRemaining.minutes > 0) {
+              <span>@timeRemaining.minutes minute(s) et @timeRemaining.seconds seconde(s)</span>
+              }
+              else if (state == 'ON_COMING' && timeRemaining.seconds > 0) {
+              <span>@timeRemaining.seconds secondes(s)</span>
+              }
+              else if (state == 'ON_GOING') {
+              <span>En cours...</span>
+              }
+              else {
+              <span>Terminé</span>
+              }
+            </div>
+          </div>
+          @if(event.location) {
+          <div class="EventCard-body-infos-item">
+            <div class="EventCard-body-infos-item-label">LOCALISATION : </div>
+            <div class="EventCard-body-infos-item-value"><a href="@event.location" rel="external">Liens vers GoogleMap</a></div>
+          </div>
+          }
+          @if(state == 'ON_END') {
+          <div class="EventCard-body-infos-item">
+            <div class="EventCard-body-infos-item-label">CODE : </div>
+            <div class="EventCard-body-infos-item-value">Expiré</div>
+          </div>
+          }
+          else {
+          <div class="EventCard-body-infos-item">
+            <div class="EventCard-body-infos-item-label">CODE : </div>
+            <div class="EventCard-body-infos-item-value">@event.code</div>
+          </div>
+          }
+        </div>
+        <div class="EventCard-body-description">@event.description</div>
+        @if(model._currentUser && model._currentUser.roles.indexOf('ADMIN') != -1) {
+        <div class="EventCard-body-actions">
+          <form class="EventCard-body-actions-form" action="/event-edit" method="GET">
+            <input name="eventId" type="hidden" value="@event._id">
+            <button class="Button EventCard-body-actions-form-button" type="submit">Editer</button>
+          </form>
+          <form class="EventCard-body-actions-form" action="/event-delete" method="POST">
+            <input name="eventId" type="hidden" value="@event._id">
+            <button class="Button EventCard-body-actions-form-button Button--primary" type="submit">Supprimer</button>
+          </form>
+        </div>
+        }
+      </div>
+    </div>
+    })
+    @if(model.events.length == 0) {
+    <div class="EmptyBox">Aucun évènements</div>
+    }
+  })
+})

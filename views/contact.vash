@@ -1,0 +1,57 @@
+<!--
+  vars
+-->
+@if(model.flash && model.flash.data) {
+  var data = model.flash.data;
+}
+@if(model.flash && model.flash.errors) {
+  var errors = model.flash.errors;
+}
+@if(model.flash && model.flash.alert) {
+  var alert = model.flash.alert;
+}
+
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+    <h2 class="Heading">Contactez-nous</h2>
+    <div class="FormModule u-layer-2 u-margin--auto u-margin--bottom">
+        <h5 class="FormModule-title">Quelle est votre message ?</h5>
+        @if(alert) {
+        <div class="Alert Alert--@(alert.type)">
+          <span>@alert.message</span>
+        </div>
+        }
+        <form class="Form" action="/contact" method="POST">
+          <div class="FormField FormField--required">
+            <label class="FormField-label">Prenom : </label>
+            <input class="FormCtrl FormCtrl--block" name="firstname" value="@(data && data.firstname || '')" required>
+            @if(errors && errors.firstname) {
+            <div class="FormField-error">@errors.firstname.message</div>
+            }
+          </div>
+          <div class="FormField FormField--required">
+            <label class="FormField-label">Nom : </label>
+            <input class="FormCtrl FormCtrl--block" name="lastname" value="@(data && data.lastname || '')" required>
+            @if(errors && errors.lastname) {
+            <div class="FormField-error">@errors.lastname.message</div>
+            }
+          </div>
+          <div class="FormField FormField--required">
+            <label class="FormField-label">Email : </label>
+            <input class="FormCtrl FormCtrl--block" name="email" type="email" value="@(data && data.email || '')" required>
+            @if(errors && errors.email) {
+            <div class="FormField-error">@errors.email.message</div>
+            }
+          </div>
+          <div class="FormField FormField--required">
+            <label class="FormField-label">Message : </label>
+            <textarea rows="4" class="FormCtrl FormCtrl--block" name="message" style="height:auto" required>@(data && data.message || '')</textarea>
+            @if(errors && errors.message) {
+            <div class="FormField-error">@errors.message.message</div>
+            }
+          </div>
+          <button class="Button Button--block" type="submit">Envoyer</button>
+        </form>
+    </div>
+  })
+})

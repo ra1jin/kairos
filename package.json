@@ -1,0 +1,38 @@
+{
+  "name": "ineb-website",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./index.js"
+  },
+  "dependencies": {
+    "@hapi/joi": "^15.1.1",
+    "app-root-path": "^2.2.1",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "connect-mongo": "^3.2.0",
+    "convict": "^6.0.0",
+    "cookie-parser": "~1.4.4",
+    "crypto": "^1.0.1",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "express": "~4.16.1",
+    "express-session": "^1.17.0",
+    "http-errors": "~1.6.3",
+    "http-status-codes": "^1.4.0",
+    "https": "^1.0.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.31",
+    "mongoose": "^5.7.5",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.2",
+    "nodemailer": "^6.4.16",
+    "ovh": "^2.0.3",
+    "validator": "^11.1.0",
+    "vash": "^0.12.9"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.5"
+  }
+}

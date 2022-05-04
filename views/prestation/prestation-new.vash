@@ -1,0 +1,77 @@
+<!--
+  vars
+-->
+@if(model.flash && model.flash.data) {
+  var data = model.flash.data;
+}
+@if(model.flash && model.flash.errors) {
+  var errors = model.flash.errors;
+}
+@if(model.flash && model.flash.alert) {
+  var alert = model.flash.alert;
+}
+
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+    <h2 class="Heading">Créer une prestation</h2>
+    <div class="FormModule" id="formModule">
+      <h5 class="FormModule-title">Formulaire de création d'une prestation</h5>
+      @if(alert) {
+      <div class="Alert Alert--@(alert.type)">
+        <span>@alert.message</span>
+      </div>
+      }
+      <form class="Form" action="/prestation-new" method="POST">
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Nom:</label>
+          <input class="FormCtrl FormCtrl--block" name="name" value="@(data && data.name)" required>
+          @if(errors && errors.name) {
+          <div class="FormField-error">@errors.name.message</div>
+          }
+        </div>
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Description:</label>
+          <input class="FormCtrl FormCtrl--block" name="description" value="@(data && data.description)">
+          @if(errors && errors.description) {
+          <div class="FormField-error">@errors.description.message</div>
+          }
+        </div>
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Durée (mins)</label>
+          <input class="FormCtrl FormCtrl--block" type="number" name="duration" value="@(data && data.duration)" required>
+          @if(errors && errors.duration) {
+          <div class="FormField-error">@errors.duration.message</div>
+          }
+        </div>
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Prix:</label>
+          <input class="FormCtrl FormCtrl--block" name="price" value="@(data && data.price)" placeholder="10,00" required>
+          @if(errors && errors.price) {
+          <div class="FormField-error">@errors.price.message</div>
+          }
+        </div>
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Catégorie:</label>
+          <select class="FormCtrl FormCtrl--block" name="category">
+            <option value="">--Choisissez une catégorie--</option>
+            @model.prestationCategories.forEach(function(prestationCategory) {
+            <option value="@prestationCategory._id">@prestationCategory.name</option>
+            })
+          </select>
+          @if(errors && errors.category) {
+          <div class="FormField-error">@errors.category.message</div>
+          }
+        </div>
+        <div class="FormField">
+          <label class="FormField-label">Réservable en ligne:</label>
+          <input type="checkbox" name="reservable" id="reservable" checked>
+          <label for="reservable">Oui</label>
+          @if(errors && errors.reservable) {
+          <div class="FormField-error">@errors.reservable.message</div>
+          }
+        </div>
+        <button class="Button Button--block" type="submit">Créer</button>
+      </form>
+    </div>    
+  })
+})

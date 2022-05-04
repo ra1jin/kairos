@@ -1,0 +1,15 @@
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+    <h2 class="Heading">Réservation en ligne effectuée</h2>
+	  <div class="ReserveConfirmed">
+      <div class="ReserveConfirmed-icon">
+        <img src="images/icon-sended.png"/>
+      </div>
+      <div class="ReserveConfirmed-warning">
+        Une notification vient d'être envoyée à votre esthéticienne.<br>
+        En cas d'imprévue merci de contacter l'établissement par téléphone.
+      </div>
+      <span>Retournez à la page d'accueil en cliquant sur ce <a href="/">lien</a></span>
+    </div>
+  })
+})

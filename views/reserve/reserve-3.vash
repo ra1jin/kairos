@@ -1,0 +1,104 @@
+<!--
+  vars
+-->
+@if(model.flash && model.flash.errors) {
+  var errors = model.flash.errors;
+}
+@if(model.flash && model.flash.alert) {
+  var alert = model.flash.alert;
+}
+
+@html.extend('layout', function(model) {
+  @html.block('added_js', function(model) {
+    <script>
+      window.addEventListener('load', function() {
+        var userSelect = document.getElementById('user-select');
+        var dateInput = document.getElementById('date-input');
+        var timeInput = document.getElementById('time-' + userSelect.value + '-' + dateInput.value);
+        timeInput.classList.remove('u-visibility--hidden');
+        timeInput.disabled = false;
+      });
+
+      var onUserSelectChanged = onDateInputChanged;
+      function onDateInputChanged() {
+        for (let timeInput of document.querySelectorAll('[name="time"]')) {
+          timeInput.classList.add('u-visibility--hidden');
+          timeInput.disabled = true;
+        }
+
+        var userSelect = document.getElementById('user-select');
+        var dateInput = document.getElementById('date-input');
+        var timeInput = document.getElementById('time-' + userSelect.value + '-' + dateInput.value);
+        timeInput.classList.remove('u-visibility--hidden');
+        timeInput.disabled = false;
+      }
+    </script>
+  })
+  @html.block('content', function(model) {
+    <h2 class="Heading">Réservation en ligne (3/3)</h2>
+    <div class="u-margin--bottom u-visibility-lg--block">
+      <ul class="ProgressBar">
+        <li class="ProgressBar-item active">Choisissez une prestation</li>
+        <li class="ProgressBar-item active">Vos coordonnées</li>
+        <li class="ProgressBar-item active">Date de la réservation</li>
+        <li class="ProgressBar-item">Confirmation</li>
+      </ul>
+    </div>
+    <div class="FormModule" id="formModule">
+      <h5 class="FormModule-title">Choisissez la date de votre réservation</h5>
+      @if(alert) {
+      <div class="Alert Alert--@(alert.type)">
+        <span>@alert.message</span>
+      </div>
+      }
+      <form class="Form" action="/reserve" method="POST">
+        <p style="color:red">
+          Attention:<br>
+          Vous ne pouvez pas réserver un soin pour le jour même, ni au delà de 14 jours.
+        </p>
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Date du rendez-vous : </label>
+          <input class="FormCtrl FormCtrl--block" id="date-input" name="date" type="date" min="@model.minDate.format('YYYY-MM-DD')" max="@model.maxDate.format('YYYY-MM-DD')" value="@model.date.format('YYYY-MM-DD')" onchange="onDateInputChanged()" required>
+          @if(errors && errors.date) {
+          <div class="FormField-error">@errors.date.message</div>
+          }
+        </div>
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Collaborateur : </label>
+          <select class="FormCtrl FormCtrl--block" id="user-select" name="userId" onchange="onUserSelectChanged()" required>
+          <option value="any">Aucune préférence</option>
+          @model.users.forEach(function(user) {
+          <option value="@user._id" @(model.userId == user.id ? 'selected' : '')>@user.firstName</option>
+          })
+          </select>
+          @if(errors && errors.date) {
+          <div class="FormField-error">@errors.user.message</div>
+          }
+        </div>
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Heure du rendez-vous : </label>
+          @Object.entries(model.calendar).forEach(function([date, day]) {
+            @Object.entries(day).forEach(function([userId, userSlots]) {
+              <select class="FormCtrl FormCtrl--block u-visibility--hidden" id="time-@userId-@date" name="time" disabled required>
+                <option>Choisissez une heure</option>
+                @userSlots.forEach(function(slot) {
+                  var slotDate = new Date(slot);
+                  var hours = (slotDate.getHours() < 10) ? '0' + slotDate.getHours() : slotDate.getHours();
+                  var minutes = (slotDate.getMinutes() < 10) ? '0' + slotDate.getMinutes() : slotDate.getMinutes();
+                  <option value="@slot">@hours:@minutes</option>
+                })
+              </select>
+            })
+          })
+          @if(errors && errors.time) {
+          <div class="FormField-error">@errors.time.message</div>
+          }
+        </div>
+        <div class="FormModule-actions">
+          <button class="FormModule-actions-buttonL Button" onclick="window.location='/reserve-back'; return false;">Précedent</button>
+          <button class="FormModule-actions-buttonR Button" type="submit">Suivant</button>
+        </div>
+      </form>
+    </div>
+  })
+})

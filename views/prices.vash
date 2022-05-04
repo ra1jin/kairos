@@ -1,0 +1,25 @@
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+	<h2 class="Heading">Tarifs des prestations</h2>
+	<div class="PriceList">
+		@for (var category in model.catalog) {
+		<div class="PriceList-header">@category</div>
+		<div class="PriceList-items">
+			@for (var prestation of model.catalog[category]) {
+			<div class="PriceList-item">
+				<div class="PriceList-item-top">
+					<div class="PriceList-item-top-name">@prestation.name</div>
+					<div class="PriceList-item-top-description">@prestation.description</div>
+				</div>
+				<div class="PriceList-item-bottom">
+					<div class="PriceList-item-bottom-time">@prestation.duration mn</div>
+					<div class="PriceList-item-bottom-separator"></div>
+					<div class="PriceList-item-bottom-price">@prestation.price €</div>
+				</div>
+			</div>
+			}
+		</div>
+		}
+	</div>
+  })
+})

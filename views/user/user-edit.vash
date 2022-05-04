@@ -1,0 +1,107 @@
+<!--
+  vars
+-->
+@{
+  var days = ['D', 'L', 'M', 'M', 'J', 'V', 'S'];
+}
+@if(model.flash && model.flash.data) {
+  var data = model.flash.data;
+}
+@if(model.flash && model.flash.errors) {
+  var errors = model.flash.errors;
+}
+@if(model.flash && model.flash.alert) {
+  var alert = model.flash.alert;
+}
+
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+    <h2 class="Heading">Editer un utilisateur</h2>
+    <div class="FormModule" id="formModule">
+      <h5 class="FormModule-title">Formulaire d'édition d'un utilisateur</h5>
+      @if(alert) {
+      <div class="Alert Alert--@(alert.type)">
+        <span>@alert.message</span>
+      </div>
+      }
+      <form class="Form" action="/user-edit" method="POST">
+        <input name="userId" type="hidden" value="@model.user._id">
+        <div class="FormField">
+          <label class="FormField-label">Nom utilisateur: </label>
+          <input class="FormCtrl FormCtrl--block" name="username" type="text" value="@model.user.username" required>
+          @if(errors && errors.username) {
+          <div class="FormField-error">@errors.username.message</div>
+          }
+        </div>
+        <div class="FormField">
+          <label class="FormField-label">Prénom: </label>
+          <input class="FormCtrl FormCtrl--block" name="firstName" type="text" value="@model.user.firstName" required>
+          @if(errors && errors.firstName) {
+          <div class="FormField-error">@errors.firstName.message</div>
+          }
+        </div>
+        <div class="FormField">
+          <label class="FormField-label">Nom: </label>
+          <input class="FormCtrl FormCtrl--block" name="lastName" type="text" value="@model.user.lastName" required>
+          @if(errors && errors.lastName) {
+          <div class="FormField-error">@errors.lastName.message</div>
+          }
+        </div>
+        <div class="FormField">
+          <label class="FormField-label">Numéro de téléphone: </label>
+          <input class="FormCtrl FormCtrl--block" name="phoneNumber" value="@model.user.phoneNumber" required>
+          @if(errors && errors.phoneNumber) {
+          <div class="FormField-error">@errors.phoneNumber.message</div>
+          }
+        </div>
+        <div class="FormField FormField--required">
+          <label class="FormField-label">Role(s):</label>
+          <div>
+            <input type="checkbox" name="roles" id="member" value="MEMBER" @(model.user.roles.includes('MEMBER') ? 'checked' : '')>
+            <label for="member">MEMBRE</label>
+          </div>
+          <div>
+            <input type="checkbox" name="roles" id="staff" value="STAFF" @(model.user.roles.includes('STAFF') ? 'checked' : '')>
+            <label for="staff">STAFF</label>
+          </div>
+          <div>
+            <input type="checkbox" name="roles" id="admin" value="ADMIN" @(model.user.roles.includes('ADMIN') ? 'checked' : '')>
+            <label for="admin">ADMIN</label>
+          </div>
+        </div>
+        <div class="FormField">
+          <label class="FormField-label">Compte activé:</label>
+          <input type="checkbox" name="activated" id="activated" @(model.user.activated ? 'checked' : '')>
+          <label for="activated">Oui</label>
+          @if(errors && errors.activated) {
+          <div class="FormField-error">@errors.activated.message</div>
+          }
+        </div>
+        <div class="FormField">
+          <label class="FormField-label">Collaborateur:</label>
+          <div>
+            <input type="checkbox" name="collaborator" id="collaborator" @(model.user.collaborator ? 'checked' : '')>
+            <label for="collaborator">Oui, ce membre est un collaborateur de l'entreprise</label>
+          </div>
+          <div>
+            <input type="checkbox" name="collaboratorAvailable" id="collaboratorAvailable" @(model.user.collaboratorAvailable ? 'checked' : '')>
+            <label for="collaboratorAvailable">Oui, ce membre est en poste actuellement</label>
+          </div>
+        </div>
+        <div class="FormField">
+          <label class="FormField-label">Horaire de la semaine:</label>
+          @for(var i = 0; i < days.length; i++) {
+          <div class="u-fx u-fx-layout-align--between u-fx-cross-align--center">
+            <label style="min-width:20px">@days[i]:</label>
+            <input class="FormCtrl" style="width:150px" type="time" name="day-@i-0" value="@model.user.collaboratorSchedules[i][0]" placeholder="Début matinée">
+            <input class="FormCtrl" style="width:150px" type="time" name="day-@i-1" value="@model.user.collaboratorSchedules[i][1]" placeholder="Fin matinée">
+            <input class="FormCtrl" style="width:150px" type="time" name="day-@i-2" value="@model.user.collaboratorSchedules[i][2]" placeholder="Début après-midi">
+            <input class="FormCtrl" style="width:150px" type="time" name="day-@i-3" value="@model.user.collaboratorSchedules[i][3]" placeholder="Fin après-midi">
+          </div>
+          }
+        </div>
+        <button class="Button Button--block" type="submit">Editer</button>
+      </form>
+    </div>    
+  })
+})

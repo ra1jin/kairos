@@ -1,0 +1,111 @@
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+	<div class="Home">
+    <img src="images/banner-00.jpg" class="BannerImg"/>
+		<div class="u-fx u-fx-layout--column u-fx-mdup-layout--row">
+			<div class="u-fx-flex-1 u-fx-mdup-flex-10">
+				<h2 class="Heading">Des produits et soins naturels</h2>
+				<div class="Home-p1">
+					<div class="Home-p1-text">
+						Vous cherchez un <b>institut</b> spécialisé dans les <b>produits et soins naturels</b>.<br>
+						Venez profiter d'un moment de <b>bien-être
+						et d'évasion</b> grâce aux produits et soins bio de la marque <b>Phyt's</b>.<br>
+						Une <b>gamme complète</b> dont les résultats sauront vous séduire.
+					</div>
+				</div>
+				<h2 class="Heading">Cosmebio</h2>
+				<div class="Home-p2">
+					<div class="Home-p2-picture">
+						<img src="images/home_cosmebio.jpg">
+					</div>
+					<div class="Home-p2-text">
+						Notre institut utilise des produits certifiée par le label <b>Cosmebio</b>.
+						Tous les cosmétiques <b>Phyt’s</b> sont développés pour apporter la plus grande <b>qualité</b> mais aussi la plus grande <b>sécurité</b> aux clients dans le respect constant de la bio diversité et de l’humain.
+					</div>
+				</div>
+				<h2 class="Heading">L'institut</h2>
+				<div class="Home-p3">
+					<div class="Home-p3-text">
+						Après un diagnostic précis des besoins de votre peau, votre <b>Naturo-Esthéticienne</b> vous conseillera
+						les soins Phyt's <b>les plus appropriés</b>.
+						Nous proposons de délicieux soins bios qui vous invitent au <b>voyage</b> dans une <b>ambiance relaxante</b>.
+					</div>
+					<div class="Home-p3-pictures">
+						<a class="Home-p3-pictures-item" href="#img1">
+							<img src="images/institut-01.jpg" class="thumbnail">
+						</a>
+						<a class="Home-p3-pictures-item" href="#img2">
+							<img src="images/institut-02.jpg" class="thumbnail">
+						</a>
+					</div>
+					<div class="Home-p3-pictures">
+						<a class="Home-p3-pictures-item" href="#img3">
+							<img src="images/institut-03.jpg" class="thumbnail">
+						</a>
+						<a class="Home-p3-pictures-item" href="#img4">
+							<img src="images/institut-04.jpg" class="thumbnail">
+						</a>
+					</div>
+				</div>
+				<h2 class="Heading">La balnéothérapie</h2>
+				<div class="u-fx u-fx-layout--column u-fx-mdup-layout--row">
+					<div class="Home-p4-text">
+						<p>
+							Venez découvrir notre espace balnéo et profiter des bienfaits exceptionnels de l'eau sous préssion.
+						</p>
+						<p>
+							Outre ces bienfaits et ses vertus relaxantes, la balnéothérapie peut également être utilisée dans un but esthétique : son action drainante participe au remodelage de la silhouette et favorise l'élimination de la cellulite tout en tonifiant l'organisme.
+						</p>
+						<p>
+							Vous apprécierez la gamme <b>Velours et Spa</b> qui apporte des parfums subtils conçus à partir d'huiles essentielles.
+						</p>
+					</div>
+					<div class="Home-p4-picture">
+						<img src="images/institut-05.jpg">
+					</div>
+				</div>
+			</div>
+			<div class="u-margin--left"></div>
+			<div class="u-fx-flex-1 u-fx-mdup-flex-4">
+				<h2 class="Heading">Evènements</h2>
+				@model.events.forEach(function(event) {
+				<div class="EventEncart" style="background-image: linear-gradient(rgb(0 0 0 / 30%), rgb(0 0 0 / 80%)), url(@(event.picture != '' ? event.picture : 'images/event-default.jpg'));">
+					<div class="EventEncart-content">
+						<div class="EventEncart-content-title">@event.title</div>
+						<div class="EventEncart-content-text">@event.description</div>
+						<a href="/event-list" class="EventEncart-content-link">En savoir plus</div>
+					</div>
+				</div>
+				})
+				@if(model.events.length == 0) {
+    		<div class="EmptyBox">Aucun évènements</div>
+    		}
+				<h2 class="Heading">S'abonner</h2>
+				<div class="SubscribeEncart">
+					<div class="SubscribeEncart-content">
+						<div class="SubscribeEncart-content-title">Recevez nos offres par mail</div>
+						<form action="/subscribe" method="POST">
+							<input class="SubscribeEncart-content-input" type="email" name="email" placeholder="Entrez votre e-mail" />
+							<button class="SubscribeEncart-content-button Button" type="submit">Envoyez</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="#_" class="Lightbox" id="img1">
+		<img class="Lightbox-img" src="/images/institut-01.jpg">
+	</a>
+	<a href="#_" class="Lightbox" id="img2">
+		<img class="Lightbox-img" src="/images/institut-02.jpg">
+	</a>
+	<a href="#_" class="Lightbox" id="img3">
+		<img class="Lightbox-img" src="/images/institut-03.jpg">
+	</a>
+	<a href="#_" class="Lightbox" id="img4">
+		<img class="Lightbox-img" src="/images/institut-04.jpg">
+	</a>
+  })
+})
+

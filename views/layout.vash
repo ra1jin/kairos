@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Institut de Beauté Nature'Elle Beaute à Terrasson-Lavilledieu</title>
+  <meta name="description" content="Accueil - Institut de beauté bio-esthétique implanté sur Terrasson depuis de nombreuses années">
+  <meta name="keywords" content="institut, institut terrasson, institut beaute terrasson, institut de beaute, institut de beaute à terrasson-lavilledieu, terrasson-lavilledieu, beaute, épilation, massage, maquillage, salon, esthétique" />
+	<meta name="copyright" content="This document copyright">
+  <meta name="viewport" content="width=device-width">
+	<link rel="manifest" href="/manifest.json">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/base.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/styles.css">
+  @html.block('added_style_files')
+  @html.block('added_script_files')
+</head>
+<body>
+  <div class="Background"></div>
+  <div class="Container">
+    <!-- HEADER BEGIN -->
+    <header class="Header">
+      @if(model._currentUser && model._currentUser.roles.includes('STAFF')) {
+      <div class="UserBanner">
+        <span class="UserBanner-welcomeMessage">Bienvenue
+          <a class="UserBanner-welcomeMessage-userlink" href="#">@model._currentUser.email</a> !
+        </span>
+        <div class="UserBanner-links">
+          <a class="UserBanner-links-item" href="/dashboard">Tableau de bord</a>
+          <a class="UserBanner-links-item" href="/logout">Déconnexion</a>
+        </div>
+      </div>
+      }
+      <div class="TopDesktop">
+        <div class="TopDesktop-brand">
+          <a href="/" class="TopDesktop-brand-logo">
+            <img src="/images/brand.svg" />
+          </a>
+        </div>
+        <div class="TopDesktop-nav">
+          @if(model._config.get('productEnable')) {
+          <a class="TopDesktop-nav-tab @(model._currentUrl.startsWith('/product-list') ? 'active' : '')" href="/product-list">Produits</a>
+          }
+          @if(model._config.get('priceEnable')) {
+          <a class="TopDesktop-nav-tab @(model._currentUrl.startsWith('/prices') ? 'active' : '')" href="/prices">Tarifs</a>
+          }
+          @if(model._config.get('reserveEnable')) {
+          <a class="TopDesktop-nav-tab @(model._currentUrl.startsWith('/reserve') ? 'active' : '')" href="/reserve-start">Réservation</a>
+          }
+          @if(model._config.get('eventEnable')) {
+          <a class="TopDesktop-nav-tab @(model._currentUrl.startsWith('/event-list') ? 'active' : '')" href="/event-list">Evènements</a>
+          }
+          @if(model._config.get('bonEnable')) {
+          <a class="TopDesktop-nav-tab @(model._currentUrl.startsWith('/bon') ? 'active' : '')" href="/bon">Bon</a>
+          }
+          @if(model._config.get('contactEnable')) {
+          <a class="TopDesktop-nav-tab @(model._currentUrl.startsWith('/contact') ? 'active' : '')" href="/contact">Contact</a>
+          }
+        </div>
+      </div>
+      <div class="TopMobile">
+        <div class="TopMobile-brand">
+          <a href="/" class="TopMobile-brand-logo">
+            <img class="TopMobile-brand-logo-img" src="/images/brand.svg" />
+          </a>
+        </div>
+        <div class="TopMobile-menu">
+          <a class="TopMobile-menu-burger" onclick="toggleMenu()"></a>
+        </div>
+        <div class="TopMobile-submenu" style="display:none">
+          <div class="TopMobile-submenu-nav">
+            @if(model._config.get('productEnable')) {
+            <a class="TopMobile-submenu-nav-tab @(model._currentUrl.startsWith('/product-list') ? 'active' : '')" href="/product-list">Produits</a>
+            }
+            @if(model._config.get('priceEnable')) {
+            <a class="TopMobile-submenu-nav-tab @(model._currentUrl.startsWith('/prices') ? 'active' : '')" href="/prices">Tarifs</a>
+            }
+            @if(model._config.get('reserveEnable')) {
+            <a class="TopMobile-submenu-nav-tab @(model._currentUrl.startsWith('/reserve') ? 'active' : '')" href="/reserve-start">Réservation</a>
+            }
+            @if(model._config.get('eventEnable')) {
+            <a class="TopMobile-submenu-nav-tab @(model._currentUrl.startsWith('/event-list') ? 'active' : '')" href="/event-list">Evènements</a>
+            }
+            @if(model._config.get('bonEnable')) {
+            <a class="TopMobile-submenu-nav-tab @(model._currentUrl.startsWith('/bon') ? 'active' : '')" href="/bon">Bon</a>
+            }
+            @if(model._config.get('contactEnable')) {
+            <a class="TopMobile-submenu-nav-tab @(model._currentUrl.startsWith('/contact') ? 'active' : '')" href="/contact">Contact</a>
+            }
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- HEADER END -->
+
+    <!-- CONTENT BEGIN -->
+		@html.block('content')
+    <!-- CONTENT END -->
+    
+    <!-- FOOTER BEGIN -->
+		<footer class="Footer">
+			<div class="Footer-encarts">
+				<div class="Footer-encart">
+					<div class="Footer-encart-content">
+						<div class="Footer-encart-content-title">Fidelite</div>
+						<div class="Footer-encart-content-text">
+							Grace à la carte de fidélité, vous pouvez profiter d'une réduction de -20% sur le 10ème soin.
+						</div>
+					</div>
+				</div>
+				<div class="Footer-encart Footer-encartHours">
+					<div class="Footer-encart-bg"></div>
+					<div class="Footer-encart-content">
+						<div class="Footer-encart-content-title">Horaires</div>
+						<div class="Footer-encart-content-text">
+							<ul class="Footer-encartHours-list">
+								<li><span class="Footer-encartHours-list-day">L</span><span
+										class="Footer-encartHours-list-hour">Fermé</span></li>
+								<li><span class="Footer-encartHours-list-day">M</span><span class="Footer-encartHours-list-hour">9h00
+										à
+										19h00</span></li>
+								<li><span class="Footer-encartHours-list-day">M</span><span
+										class="Footer-encartHours-list-hour">9h00 à
+										19h00</span></li>
+								<li><span class="Footer-encartHours-list-day">J</span><span class="Footer-encartHours-list-hour">9h00
+										à
+										19h00</span></li>
+								<li><span class="Footer-encartHours-list-day">V</span><span
+										class="Footer-encartHours-list-hour">9h00 à
+										19h00</span></li>
+								<li><span class="Footer-encartHours-list-day">S</span><span class="Footer-encartHours-list-hour">9h00
+										à
+										16h00</span></li>
+								<li><span class="Footer-encartHours-list-day">D</span><span
+										class="Footer-encartHours-list-hour">Fermé</span></li>
+							</ul>
+							<i>Le samedi après-midi sur rendez-vous uniquement.</i>
+						</div>
+					</div>
+				</div>
+				<div class="Footer-encart">
+					<div class="Footer-encart-content">
+						<div class="Footer-encart-content-title">Telephone</div>
+						<div class="Footer-encart-content-text">
+							<div class="Footer-encart--tel-num">05 53 50 19 34</div>
+							<div class="Footer-encart--tel-num">06 19 84 85 34</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="Footer-copyright">
+				<em>natureellebeaute.fr - 2019 © Tous droits réservés</em>
+			</div>
+		</footer>
+    <!-- FOOTER END -->
+  </div>
+	<script>
+    function toggleMenu() {
+      var menuMobile = document.querySelector('.TopMobile-submenu');
+			var burger = document.querySelector('.TopMobile-menu-burger');
+      
+      if (menuMobile.style.display == 'none') {
+				burger.classList.add('TopMobile-menu-burger--close');
+				menuMobile.style.display = 'block';
+			}
+			else {
+				burger.classList.remove('TopMobile-menu-burger--close');
+				menuMobile.style.display = 'none';
+			}
+    }
+	</script>
+  @html.block('added_js')
+</body>
+</html>

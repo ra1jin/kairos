@@ -1,0 +1,12 @@
+@html.extend('layout', function(model) {
+  @html.block('content', function(model) {
+    <img src="images/banner-00.jpg" class="BannerImg"/>
+    <div class="u-text--center">
+      <p>
+        Vous n'avez pas les privilèges requis pour accèder à cette page, en cas de problème merci
+        de contacter l'établissement par téléphone.
+      </p>
+      <span>Retournez à la page d'accueil en cliquant sur ce <a href="/">lien</a></span>
+    </div>
+  })
+})
