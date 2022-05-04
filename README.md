@@ -31,4 +31,3 @@ HOT-LIST
 + Suppr des règles css spécifique pour une page (ex: Home); Remplacer par utilitaire ou composant css
 
 + Bonus 1: Ajouter sms de rappel
-+ Bonus 2: Passage en Twig
