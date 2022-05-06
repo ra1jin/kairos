@@ -59,7 +59,7 @@ function expressSetup() {
     resave: true,
     saveUninitialized: true,
     cookie: {
-      secure: true,
+      secure: config.get('https'),
       httpOnly: true,
       maxAge: 86400000
     }

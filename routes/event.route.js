@@ -111,9 +111,9 @@ router.post('/event-new', [authGuard([{ role: 'ADMIN' }]), uploadService.single(
     for (let subscriber of subscribers) {
       var emailDest = subscriber.email;
       var subject = event.title;
-      var message = 'Nous vous informons d\'un nouvel évènement sur le site natureellebeaute.fr.\n';
+      var message = 'Nous vous informons d\'un nouvel évènement.\n';
       message += 'Pour en savoir plus rendez-vous sur : ' + config.get('url') + '/event-list \n';
-      message += 'Coordialement, votre esthéticienne.';
+      message += 'Coordialement.';
       await mailService.send(emailDest, subject, message, '');
     }
   }

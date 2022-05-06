@@ -2,7 +2,7 @@ var Joi = require('@hapi/joi');
 
 function validateNumeric(value) {
   var schema = Joi.number().required();
-  if (value && schema.validate(value).error) {
+  if (schema.validate(value).error) {
     return 'Valeur invalide';
   }
 }

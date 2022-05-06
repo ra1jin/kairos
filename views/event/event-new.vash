@@ -24,28 +24,28 @@
       <form class="Form" action="/event-new" method="POST" enctype="multipart/form-data">
         <div class="FormField FormField--required">
           <label class="FormField-label">Titre</label>
-          <input class="FormCtrl FormCtrl--block" name="title" value="@(data && data.title || '')" required>
+          <input class="FormCtrl FormCtrl--block" name="title" value="@(data && data.title)" required>
           @if(errors && errors.title) {
           <div class="FormField-error">@errors.title.message</div>
           }
         </div>
         <div class="FormField FormField--required">
           <label class="FormField-label">Date de début</label>
-          <input class="FormCtrl FormCtrl--block" name="startDatetime" type="datetime-local" value="@(data && data.startDatetime || '')" required>
+          <input class="FormCtrl FormCtrl--block" name="startDatetime" type="datetime-local" value="@(data && data.startDatetime)" required>
           @if(errors && errors.startDatetime) {
           <div class="FormField-error">@errors.startDatetime.message</div>
           }
         </div>
         <div class="FormField FormField--required">
           <label class="FormField-label">Date de fin</label>
-          <input class="FormCtrl FormCtrl--block" name="endDatetime" type="datetime-local" value="@(data && data.endDatetime || '')" required>
+          <input class="FormCtrl FormCtrl--block" name="endDatetime" type="datetime-local" value="@(data && data.endDatetime)" required>
           @if(errors && errors.endDatetime) {
           <div class="FormField-error">@errors.endDatetime.message</div>
           }
         </div>
         <div class="FormField">
           <label class="FormField-label">Localisation</label>
-          <input class="FormCtrl FormCtrl--block" name="location" value="@(data && data.location || '')" pattern="^https:\/\/goo.gl\/maps\/[A-Za-z0-9]{17}$" placeholder="https://goo.gl/maps/xxxxxxxxxxxxx">
+          <input class="FormCtrl FormCtrl--block" name="location" value="@(data && data.location)" pattern="^https:\/\/goo.gl\/maps\/[A-Za-z0-9]{17}$" placeholder="https://goo.gl/maps/xxxxxxxxxxxxx">
           @if(errors && errors.location) {
           <div class="FormField-error">@errors.location.message</div>
           }
@@ -59,7 +59,7 @@
         </div>
         <div class="FormField">
           <label class="FormField-label">Description</label>
-          <textarea class="FormCtrl FormCtrl--block" name="description" rows="5" cols="33" style="resize: none; height: auto">@(data && data.description || '')</textarea>
+          <textarea class="FormCtrl FormCtrl--block" name="description" rows="5" cols="33" style="resize: none; height: auto">@(data && data.description)</textarea>
         </div>
         <button class="Button Button--block" type="submit">Créer</button>
       </form>

@@ -25,8 +25,7 @@
 				<li><a href="/product-list">Liste des produits</a></li>
 				<li><a href="/product-category-list">Liste des catégories de produits</a></li>
 				<li><a href="/product-brand-list">Liste des marques de produits</a></li>
-				<li><a href="/reserve-list-by-day">Liste des réservations par jour</a></li>
-				<li><a href="/reserve-list-by-interval">Liste des réservations par intervale</a></li>
+				<li><a href="/reserve-list">Liste des réservations</a></li>
 			</ul>
 		</div>
 	</div>

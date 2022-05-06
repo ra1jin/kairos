@@ -30,7 +30,7 @@ var config = convict({
   https: {
     doc: 'Toggle for https support.',
     format: Boolean,
-    default: true,
+    default: false,
     env: 'HTTPS',
     arg: 'https'
   },

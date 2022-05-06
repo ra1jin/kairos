@@ -28,7 +28,7 @@ router.get('/reserve-list', [authGuard([{ role: 'STAFF' }]), async function (req
   var endDate = (req.query.endDate) ? moment(req.query.endDate, "YYYY-MM-DD") : moment();
   var reserves = await Reserve.find({ startTime: { "$gte": moment(beginDate).startOf('day'), "$lte": moment(endDate).endOf('day') }, user: req.session.user }).sort({ startTime: 1 }).populate('prestations').exec();
 
-  res.render('reserve/reserve', {
+  res.render('reserve/reserve-list', {
     beginDate: beginDate,
     endDate: endDate,
     reserves: reserves
